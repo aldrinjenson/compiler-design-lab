@@ -67,10 +67,10 @@
 
 
 /* First part of user prologue.  */
-#line 1 "valid_id.y"
+#line 1 "validIdent3.y"
 
-    #include<stdio.h>
-    int valid=1;
+  #include<stdio.h>
+  int isValid = 1;
 
 #line 76 "y.tab.c"
 
@@ -116,8 +116,8 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    digit = 258,                   /* digit  */
-    letter = 259                   /* letter  */
+    letter = 258,                  /* letter  */
+    digit = 259                    /* digit  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -126,8 +126,8 @@ extern int yydebug;
 #define YYEOF 0
 #define YYerror 256
 #define YYUNDEF 257
-#define digit 258
-#define letter 259
+#define letter 258
+#define digit 259
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -151,8 +151,8 @@ enum yysymbol_kind_t
   YYSYMBOL_YYEOF = 0,                      /* "end of file"  */
   YYSYMBOL_YYerror = 1,                    /* error  */
   YYSYMBOL_YYUNDEF = 2,                    /* "invalid token"  */
-  YYSYMBOL_digit = 3,                      /* digit  */
-  YYSYMBOL_letter = 4,                     /* letter  */
+  YYSYMBOL_letter = 3,                     /* letter  */
+  YYSYMBOL_digit = 4,                      /* digit  */
   YYSYMBOL_YYACCEPT = 5,                   /* $accept  */
   YYSYMBOL_start = 6,                      /* start  */
   YYSYMBOL_s = 7                           /* s  */
@@ -557,7 +557,7 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "\"end of file\"", "error", "\"invalid token\"", "digit", "letter",
+  "\"end of file\"", "error", "\"invalid token\"", "letter", "digit",
   "$accept", "start", "s", YY_NULLPTR
 };
 
@@ -582,7 +582,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       0,    -3,     5,    -3,    -3,    -4,    -4,    -4,    -4
+       1,    -3,     5,    -3,    -3,    -4,    -4,    -4,    -4
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -590,7 +590,7 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     5,     0,     5,     5,     2,     1,     4,     3
+       0,     5,     0,     5,     5,     2,     1,     3,     4
 };
 
 /* YYPGOTO[NTERM-NUM].  */
@@ -615,14 +615,14 @@ static const yytype_int8 yytable[] =
 
 static const yytype_int8 yycheck[] =
 {
-       3,     4,     3,     4,     4,     0
+       3,     4,     3,     4,     3,     0
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     4,     6,     3,     4,     7,     0,     7,     7
+       0,     3,     6,     3,     4,     7,     0,     7,     7
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
@@ -1291,18 +1291,22 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 11 "valid_id.y"
+#line 11 "validIdent3.y"
 
 
-int yyerror() {
-    printf("\nIts not a identifier!\n");
-    valid=0;
-    return 0;
+int yyerror(char *msg){
+  isValid = 0;
+  printf("%s", msg);
+  return 0;
 }
-int main() {
-    printf("\nEnter a name to tested for identifier: ");
-    yyparse();
-    if(valid) {
-        printf("\nIt is a identifier!\n");
-    }
+
+int main(){
+  printf("Enter identifier: ");
+  yyparse();
+  if(isValid){
+    printf("is valid");
+  }else{
+    printf("invalid");
+  }
+  return 0;
 }

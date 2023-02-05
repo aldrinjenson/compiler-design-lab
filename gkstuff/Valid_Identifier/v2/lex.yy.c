@@ -442,7 +442,7 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "valid_id.l"
 #line 2 "valid_id.l"
-    #include "y.tab.h"
+  #include"y.tab.h"
 #line 446 "lex.yy.c"
 #line 447 "lex.yy.c"
 
@@ -1754,6 +1754,7 @@ void yyfree (void * ptr )
 #line 10 "valid_id.l"
 
 
-int yywrap() {
-    return 1;
+
+int yywrap(){
+  return 1;
 }
