@@ -1,0 +1,11 @@
+#include<stdio.h>
+void main()
+{
+/* comment line bro */
+int num1, num2, num3;
+float p;
+num3 = num1 + num2;
+if (num 3 > 10){
+  num3 = 56;
+  }
+}
