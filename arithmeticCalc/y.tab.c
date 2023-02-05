@@ -67,13 +67,12 @@
 
 
 /* First part of user prologue.  */
-#line 1 "calc.y"
+#line 1 "arithmeticCalc.y"
 
-    #include<stdio.h>
-    int yylex();
-    int yyerror();
+  isValid = 1;
+  #include<stdio.h>
 
-#line 77 "y.tab.c"
+#line 76 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -1112,50 +1111,50 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* start: E  */
-#line 8 "calc.y"
+#line 8 "arithmeticCalc.y"
          { printf("%d\n", yyvsp[0]); }
-#line 1118 "y.tab.c"
+#line 1117 "y.tab.c"
     break;
 
   case 3: /* E: E '+' T  */
-#line 10 "calc.y"
+#line 10 "arithmeticCalc.y"
            { yyval = yyvsp[-2] + yyvsp[0]; }
-#line 1124 "y.tab.c"
+#line 1123 "y.tab.c"
     break;
 
   case 4: /* E: E '-' T  */
-#line 11 "calc.y"
+#line 11 "arithmeticCalc.y"
           { yyval = yyvsp[-2] - yyvsp[0]; }
-#line 1130 "y.tab.c"
+#line 1129 "y.tab.c"
     break;
 
   case 6: /* T: T '*' F  */
-#line 14 "calc.y"
+#line 14 "arithmeticCalc.y"
            { yyval = yyvsp[-2] * yyvsp[0]; }
-#line 1136 "y.tab.c"
+#line 1135 "y.tab.c"
     break;
 
   case 7: /* T: T '/' F  */
-#line 15 "calc.y"
+#line 15 "arithmeticCalc.y"
          { if(yyvsp[0]) yyval = yyvsp[-2] / yyvsp[0];
             else return yyerror("Divide by zero"); }
-#line 1143 "y.tab.c"
+#line 1142 "y.tab.c"
     break;
 
   case 9: /* F: '(' E ')'  */
-#line 19 "calc.y"
+#line 19 "arithmeticCalc.y"
              { yyval = yyvsp[-1]; }
-#line 1149 "y.tab.c"
+#line 1148 "y.tab.c"
     break;
 
   case 10: /* F: digit  */
-#line 20 "calc.y"
+#line 20 "arithmeticCalc.y"
         { yyval = yyvsp[0]; }
-#line 1155 "y.tab.c"
+#line 1154 "y.tab.c"
     break;
 
 
-#line 1159 "y.tab.c"
+#line 1158 "y.tab.c"
 
       default: break;
     }
@@ -1348,15 +1347,20 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 22 "calc.y"
+#line 22 "arithmeticCalc.y"
 
 
-int yyerror(char* s) {
-fprintf(stderr, "%s\n", s);
-return 0;
+int yyerror(char *msg){
+  isValid = 0;
+  printf("Error: %s\n", msg);
 }
 
-int main() {
-printf("Input the expression: ");
-yyparse();
+int main(){
+  printf("enter expression: ");
+  yyparse();
+  if(isValid){
+    printf("valid expression");
+  }else{
+    printf("invalid");
+  }
 }

@@ -4,11 +4,15 @@
 int yylex();
 int yyerror();
 %}
+
 %token NUMBER ID
+
 // setting the precedence
 // and associativity of operators
+
 %left '+' '-'
 %left '*' '/'
+
 /* Rule Section */
 %%
 E : T {

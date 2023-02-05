@@ -1,8 +1,8 @@
 %{
-    #include<stdio.h>
-    int yylex();
-    int yyerror();
+  isValid = 1;
+  #include<stdio.h>
 %}
+
 %token digit
 %%
 start: E { printf("%d\n", $1); }
@@ -21,12 +21,17 @@ F: '(' E ')' { $$ = $2; }
 ;
 %%
 
-int yyerror(char* s) {
-fprintf(stderr, "%s\n", s);
-return 0;
+int yyerror(char *msg){
+  isValid = 0;
+  printf("Error: %s\n", msg);
 }
 
-int main() {
-printf("Input the expression: ");
-yyparse();
+int main(){
+  printf("enter expression: ");
+  yyparse();
+  if(isValid){
+    printf("valid expression");
+  }else{
+    printf("invalid");
+  }
 }
