@@ -1,4 +1,9 @@
 #include <stdio.h>
+#include <string.h>
+// Production rules:
+// E -> iZ
+// Z -> +iZ
+// Z -> ε
 
 char inp[100];
 int len = 0;
@@ -11,10 +16,8 @@ int main()
 {
     printf("Enter input:\n");
     scanf("%s", inp);
-    while (inp[len] != '\0')
-        len++;
     int res = E();
-    if (res == 1 && curr == len)
+    if (res == 1 && curr == strlen(inp))
         printf("Input has been accepted.\n");
     else
         printf("Input has been rejected.\n");
@@ -47,3 +50,8 @@ int Z()
     }
     return 1;
 }
+
+// Valid strings
+// "i+i+i"
+// "i"
+// "i+i"

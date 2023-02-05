@@ -4,20 +4,24 @@
     #include<stdlib.h>
     int yylex();
     int yyerror();
+
     struct quad
     {
         char op[5];
         char arg1[10];
         char arg2[10];
-    char result[10];
+        char result[10];
     } QUAD[30];
+
     struct stack
     {
         int items[100];
         int top;
     } stk;
+
     int Index=0,tIndex=0,StNo,Ind,tInd;
     extern int LineNo;
+
     void push(int data)
     {
         stk.top++;
@@ -28,6 +32,7 @@
         }
         stk.items[stk.top]=data;
     }
+
     void AddQuadruple(char op[5],char arg1[10],char arg2[10],char result[10])
     {
         strcpy(QUAD[Index].op,op);
@@ -36,6 +41,7 @@
         sprintf(QUAD[Index].result,"t%d",tIndex++);
         strcpy(result,QUAD[Index++].result);
     }
+
     int pop()
     {
         int data;
@@ -52,10 +58,12 @@
         printf("\n Error on line no:%d",LineNo);
     }
 %}
+
 %union
 {
     char var[10];
 }
+
 %token <var> NUM VAR RELOP
 %token MAIN IF ELSE WHILE TYPE
 %type <var> EXPR ASSIGNMENT CONDITION IFST ELSEST
@@ -63,12 +71,14 @@ WHILELOOP
 %left '-' '+'
 %left '*' '/'
 %%
+
 PROGRAM : MAIN BLOCK ;
 BLOCK: '{' CODE '}' ;
 CODE: BLOCK | STATEMENT CODE | STATEMENT ;
 STATEMENT: DESCT ';' | ASSIGNMENT ';' | CONDST | WHILEST ;
 DESCT: TYPE VARLIST ;
 VARLIST: VAR ',' VARLIST | VAR ;
+
 ASSIGNMENT: VAR '=' EXPR {
     strcpy(QUAD[Index].op,"=");
     strcpy(QUAD[Index].arg1,$3);
@@ -76,6 +86,7 @@ ASSIGNMENT: VAR '=' EXPR {
     strcpy(QUAD[Index].result,$1);
     strcpy($$,QUAD[Index++].result);
 };
+
 EXPR: EXPR '+' EXPR {AddQuadruple("+",$1,$3,$$);}
     | EXPR '-' EXPR {AddQuadruple("-",$1,$3,$$);}
     | EXPR '*' EXPR {AddQuadruple("*",$1,$3,$$);}

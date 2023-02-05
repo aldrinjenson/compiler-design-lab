@@ -7,14 +7,14 @@ struct node
 };
 
 void findclosure(int, int);
-void insert_trantbl(int, char, int);
+void insertToTransitionTable(int, char, int);
 int findalpha(char);
 void findfinalstate(void);
 void unionclosure(int);
 void print_e_closure(int);
 
-static int set[20], nostate, noalpha, s, notransition, nofinal, start, finalstate[20], c, r, buffer[20];
-char alphabet[20];
+static int set[20], numStates, numAlphabets, s, numTransitions, numFinalStates, start, finalStates[20], c, r, buffer[20];
+char alphabets[20];
 static int e_closure[20][20] = {0};
 struct node *transition[20][20] = {NULL};
 
@@ -23,37 +23,37 @@ void main()
     int i, j, k, m, t, n;
     struct node *temp;
     printf("Enter the number of alphabets: ");
-    scanf("%d", &noalpha);
+    scanf("%d", &numAlphabets);
     getchar();
     printf("\nNOTE: Use letter e as epsilon\n");
     printf("NOTE: e must be last character, if it is present\n");
     printf("\nEnter the alphabets: ");
-    for (i = 0; i < noalpha; i++)
+    for (i = 0; i < numAlphabets; i++)
     {
-        alphabet[i] = getchar();
+        alphabets[i] = getchar();
         getchar();
     }
     printf("Enter the number of states: ");
-    scanf("%d", &nostate);
+    scanf("%d", &numStates);
     printf("Enter the start state: ");
     scanf("%d", &start);
     printf("Enter the number of final states: ");
-    scanf("%d", &nofinal);
+    scanf("%d", &numFinalStates);
     printf("Enter the final state(s): ");
-    for (i = 0; i < nofinal; i++)
-        scanf("%d", &finalstate[i]);
+    for (i = 0; i < numFinalStates; i++)
+        scanf("%d", &finalStates[i]);
     printf("\nEnter no of transition: ");
-    scanf("%d", &notransition);
-    printf("\nNOTE: Transition is in the form--> qno alphabet qno\n");
+    scanf("%d", &numTransitions);
+    printf("\nNOTE: Transition is in the form--> qno alphabets qno\n");
     printf("NOTE: States number must be greater than zero\n");
     printf("\nEnter the transitions:\n");
-    for (i = 0; i < notransition; i++)
+    for (i = 0; i < numTransitions; i++)
     {
         scanf("%d %lc%d", &r, &c, &s);
-        insert_trantbl(r, c, s);
+        insertToTransitionTable(r, c, s);
     }
     printf("\n");
-    for (i = 1; i <= nostate; i++)
+    for (i = 1; i <= numStates; i++)
     {
         c = 0;
         for (j = 0; j < 20; j++)
@@ -68,17 +68,17 @@ void main()
     printf("Start state: ");
     print_e_closure(start);
     printf("\nAlphabets: ");
-    for (i = 0; i < noalpha; i++)
-        printf("%c ", alphabet[i]);
+    for (i = 0; i < numAlphabets; i++)
+        printf("%c ", alphabets[i]);
     printf("\nStates : ");
-    for (i = 1; i <= nostate; i++)
+    for (i = 1; i <= numStates; i++)
         print_e_closure(i);
     printf("\nThe Transitions are:");
-    for (i = 1; i <= nostate; i++)
+    for (i = 1; i <= numStates; i++)
     {
-        for (j = 0; j < noalpha - 1; j++)
+        for (j = 0; j < numAlphabets - 1; j++)
         {
-            for (m = 1; m <= nostate; m++)
+            for (m = 1; m <= numStates; m++)
                 set[m] = 0;
             for (k = 0; e_closure[i][k] != 0; k++)
             {
@@ -92,9 +92,9 @@ void main()
             }
             printf("\n");
             print_e_closure(i);
-            printf("%c\t", alphabet[j]);
+            printf("%c\t", alphabets[j]);
             printf("{");
-            for (n = 1; n <= nostate; n++)
+            for (n = 1; n <= numStates; n++)
             {
                 if (set[n] != 0)
                     printf("q%d,", n);
@@ -114,9 +114,9 @@ void findclosure(int x, int sta)
         return;
     e_closure[sta][c++] = x;
     buffer[x] = 1;
-    if (alphabet[noalpha - 1] == 'e' && transition[x][noalpha - 1] != NULL)
+    if (alphabets[numAlphabets - 1] == 'e' && transition[x][numAlphabets - 1] != NULL)
     {
-        temp = transition[x][noalpha - 1];
+        temp = transition[x][numAlphabets - 1];
         while (temp != NULL)
         {
             findclosure(temp->st, sta);
@@ -125,7 +125,7 @@ void findclosure(int x, int sta)
     }
 }
 
-void insert_trantbl(int r, char c, int s)
+void insertToTransitionTable(int r, char c, int s)
 {
     int j;
     struct node *temp;
@@ -144,8 +144,8 @@ void insert_trantbl(int r, char c, int s)
 int findalpha(char c)
 {
     int i;
-    for (i = 0; i < noalpha; i++)
-        if (alphabet[i] == c)
+    for (i = 0; i < numAlphabets; i++)
+        if (alphabets[i] == c)
             return i;
     return (999);
 }
@@ -164,13 +164,13 @@ void unionclosure(int i)
 void findfinalstate()
 {
     int i, j, k, t;
-    for (i = 0; i < nofinal; i++)
+    for (i = 0; i < numFinalStates; i++)
     {
-        for (j = 1; j <= nostate; j++)
+        for (j = 1; j <= numStates; j++)
         {
             for (k = 0; e_closure[j][k] != 0; k++)
             {
-                if (e_closure[j][k] == finalstate[i])
+                if (e_closure[j][k] == finalStates[i])
                 {
                     print_e_closure(j);
                 }

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static int nostate, noalpha, s, notransition, nofinal, start, finalstate[20], r;
+static int nostate, noalpha, s, notransition, nofinal, start, finalStates[20], r;
 char alphabet[20];
 int transition_map[30][30], table[30][30], nonfinalstate[20], partition[20][20];
 
@@ -40,7 +40,7 @@ int main()
     scanf("%d", &nofinal);
     printf("Enter the final state(s): ");
     for (i = 0; i < nofinal; i++)
-        scanf("%d", &finalstate[i]);
+        scanf("%d", &finalStates[i]);
     printf("Enter no of transition: ");
     scanf("%d", &notransition);
     printf("Enter Transition in the form –> state alphabet next_state\n");
@@ -69,7 +69,7 @@ int main()
         f = 0;
         for (j = 0; j < nofinal; j++)
         {
-            if (i == finalstate[j])
+            if (i == finalStates[j])
             {
                 f = 1;
                 break;
@@ -83,10 +83,10 @@ int main()
     for (i = 0; i < nofinal; i++)
     {
         for (j = 0; j < (nostate - nofinal); j++)
-            if (nonfinalstate[j] > finalstate[i])
-                table[nonfinalstate[j]][finalstate[i]] = 1;
+            if (nonfinalstate[j] > finalStates[i])
+                table[nonfinalstate[j]][finalStates[i]] = 1;
             else
-                table[finalstate[i]][nonfinalstate[j]] = 1;
+                table[finalStates[i]][nonfinalstate[j]] = 1;
     }
     int change = 1;
     while (change == 1)
