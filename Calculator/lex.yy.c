@@ -1,5 +1,5 @@
 
-#line 3 "lex.yy.c"
+#line 2 "lex.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -445,8 +445,8 @@ char *yytext;
     #include<stdio.h>
     #include "y.tab.h"
     extern int yylval;
+#line 448 "lex.yy.c"
 #line 449 "lex.yy.c"
-#line 450 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -665,7 +665,7 @@ YY_DECL
 	{
 #line 6 "calc.l"
 
-#line 669 "lex.yy.c"
+#line 668 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -751,7 +751,7 @@ YY_RULE_SETUP
 #line 14 "calc.l"
 ECHO;
 	YY_BREAK
-#line 755 "lex.yy.c"
+#line 754 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 

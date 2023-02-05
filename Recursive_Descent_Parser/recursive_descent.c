@@ -1,9 +1,12 @@
 #include <stdio.h>
+
 char inp[100];
 int len = 0;
 int curr = 0;
+
 int E();
 int Z();
+
 int main()
 {
     printf("Enter input:\n");

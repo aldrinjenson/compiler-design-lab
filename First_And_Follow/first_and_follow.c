@@ -56,6 +56,7 @@ void first(char nonterm)
     strcpy(firsts[nonterm - 65], curr_firsts);
     is_first_done[nonterm - 65] = 1;
 }
+
 void follow(char nonterm)
 {
     int index = 0;
