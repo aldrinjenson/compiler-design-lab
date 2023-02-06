@@ -1,5 +1,10 @@
 #include <stdio.h>
 #include <string.h>
+// shift reducer parser
+// S -> S + S
+// S -> S - S
+// S -> (S)
+// S -> i
 
 char inp[100];
 int len;
@@ -62,6 +67,7 @@ int main()
     for (int i = 0; i < len; i++)
     {
         print_details(i, "SHIFT");
+        printf("stack = %s\n", stack);
         stack[top] = inp[i];
         check_for_reduce(i);
         top++;

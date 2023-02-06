@@ -11,7 +11,7 @@ void gen_code_for_operator(char *inp, char operator, char * reg)
         {
             printf("%c\t%c\t%c\t%c\n", operator, * reg, inp[i - 1], inp[i + 1]);
             temp[j - 1] = *reg; // Instead of copying a/b to the temp string, copy the output register Z
-                i += 2;
+            i += 2;
             (*reg)--; // Change register from Z to Y etc
             continue;
         }
@@ -20,6 +20,7 @@ void gen_code_for_operator(char *inp, char operator, char * reg)
         j++;
     }
     temp[++j] = '\0';
+    printf("temp=%s\n", temp);
     strcpy(inp, temp);
 }
 
